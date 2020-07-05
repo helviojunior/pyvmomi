@@ -76,4 +76,10 @@ Related Projects
 * Samples Project: https://github.com/vmware/pyvmomi-community-samples
 * Feature Incubator: pyvmomi-tools https://github.com/vmware/pyvmomi-tools
 
+Licence Error
+================
+If you are facing the followin error: "Caught vmodl fault : Current license or ESXi version prohibits execution of the requested operation." i solved that and this fork have the solutions implemented.
+
+
 Have fun!
+
