@@ -1237,7 +1237,7 @@ class SoapStubAdapter(SoapStubAdapterBase):
       elif not version:
          version = 'vim.version.version1'
       SoapStubAdapterBase.__init__(self, version=version)
-      self.cookie = ""
+      self.cookie = "vmware_client=VMware;"
       if sock:
          self.scheme = UnixSocketConnection
          # Store sock in the host member variable because that's where
@@ -1361,7 +1361,7 @@ class SoapStubAdapter(SoapStubAdapterBase):
       cookie = resp.getheader('set-cookie')
       if cookie is None:
           # try case-sensitive header for compatibility
-          cookie = resp.getheader('Set-Cookie')
+          cookie = "vmware_client=VMware;" + resp.getheader('Set-Cookie')
       status = resp.status
 
       if cookie:
