@@ -1361,11 +1361,11 @@ class SoapStubAdapter(SoapStubAdapterBase):
       cookie = resp.getheader('set-cookie')
       if cookie is None:
           # try case-sensitive header for compatibility
-          cookie = "vmware_client=VMware; " + (resp.getheader('Set-Cookie') or "")
+          cookie = resp.getheader('Set-Cookie')
       status = resp.status
 
       if cookie:
-         self.cookie = cookie
+         self.cookie = "vmware_client=VMware;" + cookie
       if status == 200 or status == 500:
          try:
             fd = resp
