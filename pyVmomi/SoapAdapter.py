@@ -1328,7 +1328,10 @@ class SoapStubAdapter(SoapStubAdapterBase):
                  customHeaders=None,
                  sessionId=None):
         self._customHeaders = customHeaders
-        self.cookie = ""
+        # ESXi license fix: spoof the vSphere client cookie to bypass
+        # "Current license or ESXi version prohibits execution of the
+        # requested operation."
+        self.cookie = "vmware_client=VMware;"
         if ns:
             assert (version is None)
             version = versionMap[ns]
@@ -1478,7 +1481,8 @@ class SoapStubAdapter(SoapStubAdapterBase):
         status = resp.status
 
         if cookie:
-            self.cookie = cookie
+            # ESXi license fix: keep the spoofed vSphere client cookie prefix.
+            self.cookie = "vmware_client=VMware;" + cookie
             sessionId = SimpleCookie(cookie)[COOKIE_NAME].value
             super(SoapStubAdapter, self).SetSessionId(sessionId)
         if status == 200 or status == 500:
@@ -1598,7 +1602,9 @@ class SoapStubAdapter(SoapStubAdapterBase):
 
     def SetSessionId(self, sessionId):
         super(SoapStubAdapter, self).SetSessionId(sessionId)
-        self.cookie = '{0}="{1}"'.format(COOKIE_NAME, sessionId) if sessionId else ""
+        # ESXi license fix: keep the spoofed vSphere client cookie prefix.
+        self.cookie = 'vmware_client=VMware;{0}="{1}"'.format(
+            COOKIE_NAME, sessionId) if sessionId else "vmware_client=VMware;"
 
     # Need to override the depcopy method. Since, the stub is not deep copyable
     # due to the thread lock and connection pool, deep copy of a managed object

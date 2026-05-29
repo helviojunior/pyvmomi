@@ -93,4 +93,8 @@ Related Projects
 * VMware vSphere Automation SDK for Python: https://github.com/vmware/vsphere-automation-sdk-python
 * Samples Project: https://github.com/vmware/pyvmomi-community-samples
 
+Licence Error
+================
+If you are facing the following error: "Caught vmodl fault : Current license or ESXi version prohibits execution of the requested operation." i solved that and this fork has the solution implemented.
+
 Have fun!
